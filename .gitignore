@@ -1,4 +1,3 @@
-build
 .idea
 .env.local
 node_modules

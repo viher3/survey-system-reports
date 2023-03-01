@@ -37,7 +37,7 @@ export const SmilesChart : React.FC<Props> = (props) => {
         setQuestion(questionText)
     }
 
-    const customAxisTick = ({x,y,payload}) => {
+    const customAxisTick = ({x,y,payload} : {x: number, y: number, payload: any}) : any => {
         if(!payload) return(<></>)
 
         switch (payload.value){
