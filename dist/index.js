@@ -557,19 +557,7 @@ function hmrAccept(bundle, id) {
 }
 
 },{}],"8lqZg":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _auto = require("chart.js/auto");
-var _autoDefault = parcelHelpers.interopDefault(_auto);
-var _1MinPng = require("./Assets/1_min.png");
-var _1MinPngDefault = parcelHelpers.interopDefault(_1MinPng);
-var _2MinPng = require("./Assets/2_min.png");
-var _2MinPngDefault = parcelHelpers.interopDefault(_2MinPng);
-var _3MinPng = require("./Assets/3_min.png");
-var _3MinPngDefault = parcelHelpers.interopDefault(_3MinPng);
-var _4MinPng = require("./Assets/4_min.png");
-var _4MinPngDefault = parcelHelpers.interopDefault(_4MinPng);
-var _5MinPng = require("./Assets/5_min.png");
-var _5MinPngDefault = parcelHelpers.interopDefault(_5MinPng);
+var _smileyChartJs = require("./Components/SmileyChart.js");
 const labels = [
     "01/01/2023",
     "02/01/2023",
@@ -608,57 +596,154 @@ const data = {
         }
     ]
 };
-const images = [
-    (0, _1MinPngDefault.default),
-    (0, _2MinPngDefault.default),
-    (0, _3MinPngDefault.default),
-    (0, _4MinPngDefault.default),
-    (0, _5MinPngDefault.default)
-].map((png)=>{
-    const image = new Image();
-    image.src = png;
-    return image;
-});
-const ctx = document.getElementById("render");
-new (0, _autoDefault.default)(ctx, {
-    type: "line",
-    data: data,
-    options: {
-        scales: {
-            y: {
-                ticks: {
-                    callback: function(value, index) {
-                        return "";
-                    // return value
-                    }
-                },
-                suggestedMin: 1,
-                suggestedMax: 6
-            }
-        }
-    },
-    plugins: [
-        {
-            afterDraw: (chart)=>{
-                var ctx = chart.ctx;
-                var xAxis = chart.scales.x;
-                var yAxis = chart.scales.y;
-                yAxis.ticks.forEach((value, index)=>{
-                    var y = yAxis.getPixelForTick(index);
-                    console.log(yAxis.paddingLeft);
-                    if (images[index]) {
-                        const xPosition = xAxis.left - 30;
-                        const yPosition = index === 0 ? y - 15 : y - (yAxis.top * 2 * index + 10);
-                        ctx.drawImage(images[index], xPosition, yPosition);
-                        value.label = "";
-                    }
-                });
-            }
-        }
-    ]
-});
+// init
+(0, _smileyChartJs.smileyChart)("render", data);
 
-},{"chart.js/auto":"d8NN9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Assets/1_min.png":"lqAVG","./Assets/2_min.png":"dr6Xh","./Assets/3_min.png":"gCelK","./Assets/4_min.png":"cIaXc","./Assets/5_min.png":"lgDvv"}],"d8NN9":[function(require,module,exports) {
+},{"./Components/SmileyChart.js":"1wgfs"}],"1wgfs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "smileyChart", ()=>smileyChart);
+var _1MinPng = require("../Assets/1_min.png");
+var _1MinPngDefault = parcelHelpers.interopDefault(_1MinPng);
+var _2MinPng = require("../Assets/2_min.png");
+var _2MinPngDefault = parcelHelpers.interopDefault(_2MinPng);
+var _3MinPng = require("../Assets/3_min.png");
+var _3MinPngDefault = parcelHelpers.interopDefault(_3MinPng);
+var _4MinPng = require("../Assets/4_min.png");
+var _4MinPngDefault = parcelHelpers.interopDefault(_4MinPng);
+var _5MinPng = require("../Assets/5_min.png");
+var _5MinPngDefault = parcelHelpers.interopDefault(_5MinPng);
+var _auto = require("chart.js/auto");
+function smileyChart(renderElementId, data) {
+    const images = [
+        (0, _1MinPngDefault.default),
+        (0, _2MinPngDefault.default),
+        (0, _3MinPngDefault.default),
+        (0, _4MinPngDefault.default),
+        (0, _5MinPngDefault.default)
+    ].map((png)=>{
+        const image = new Image();
+        image.src = png;
+        return image;
+    });
+    const ctx = document.getElementById(renderElementId);
+    new (0, _auto.Chart)(ctx, {
+        type: "line",
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value, index) {
+                            return "";
+                        }
+                    },
+                    suggestedMin: 1,
+                    suggestedMax: 6
+                }
+            }
+        },
+        plugins: [
+            {
+                afterDraw: (chart)=>{
+                    var ctx = chart.ctx;
+                    var xAxis = chart.scales.x;
+                    var yAxis = chart.scales.y;
+                    yAxis.ticks.forEach((value, index)=>{
+                        var y = yAxis.getPixelForTick(index);
+                        if (images[index]) {
+                            const xPosition = xAxis.left - 30;
+                            const yPosition = index === 0 ? y - 15 : y - (yAxis.top * 2 * index + 10);
+                            ctx.drawImage(images[index], xPosition, yPosition);
+                            value.label = "";
+                        }
+                    });
+                }
+            }
+        ]
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Assets/1_min.png":"lqAVG","../Assets/2_min.png":"dr6Xh","../Assets/3_min.png":"gCelK","../Assets/4_min.png":"cIaXc","../Assets/5_min.png":"lgDvv","chart.js/auto":"d8NN9"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"lqAVG":[function(require,module,exports) {
+module.exports = require("b94b11f82fcd3e75").getBundleURL("bLxZJ") + "1_min.3188a508.png" + "?" + Date.now();
+
+},{"b94b11f82fcd3e75":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"dr6Xh":[function(require,module,exports) {
+module.exports = require("af75deb1d8a0b47e").getBundleURL("bLxZJ") + "2_min.848a90ad.png" + "?" + Date.now();
+
+},{"af75deb1d8a0b47e":"lgJ39"}],"gCelK":[function(require,module,exports) {
+module.exports = require("559ef665a272c6ab").getBundleURL("bLxZJ") + "3_min.ff71057b.png" + "?" + Date.now();
+
+},{"559ef665a272c6ab":"lgJ39"}],"cIaXc":[function(require,module,exports) {
+module.exports = require("92ce6f710800422a").getBundleURL("bLxZJ") + "4_min.29d2c127.png" + "?" + Date.now();
+
+},{"92ce6f710800422a":"lgJ39"}],"lgDvv":[function(require,module,exports) {
+module.exports = require("d9a2431f0d960851").getBundleURL("bLxZJ") + "5_min.36270ba2.png" + "?" + Date.now();
+
+},{"d9a2431f0d960851":"lgJ39"}],"d8NN9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _chartJs = require("../dist/chart.js");
@@ -13834,85 +13919,6 @@ function index_esm(input) {
     return new Color(input);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"lqAVG":[function(require,module,exports) {
-module.exports = require("b94b11f82fcd3e75").getBundleURL("bLxZJ") + "1_min.3188a508.png" + "?" + Date.now();
-
-},{"b94b11f82fcd3e75":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"dr6Xh":[function(require,module,exports) {
-module.exports = require("af75deb1d8a0b47e").getBundleURL("bLxZJ") + "2_min.848a90ad.png" + "?" + Date.now();
-
-},{"af75deb1d8a0b47e":"lgJ39"}],"gCelK":[function(require,module,exports) {
-module.exports = require("559ef665a272c6ab").getBundleURL("bLxZJ") + "3_min.ff71057b.png" + "?" + Date.now();
-
-},{"559ef665a272c6ab":"lgJ39"}],"cIaXc":[function(require,module,exports) {
-module.exports = require("92ce6f710800422a").getBundleURL("bLxZJ") + "4_min.29d2c127.png" + "?" + Date.now();
-
-},{"92ce6f710800422a":"lgJ39"}],"lgDvv":[function(require,module,exports) {
-module.exports = require("d9a2431f0d960851").getBundleURL("bLxZJ") + "5_min.36270ba2.png" + "?" + Date.now();
-
-},{"d9a2431f0d960851":"lgJ39"}]},["412hi","8lqZg"], "8lqZg", "parcelRequire55a6")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["412hi","8lqZg"], "8lqZg", "parcelRequire55a6")
 
 //# sourceMappingURL=index.js.map
