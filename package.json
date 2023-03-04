@@ -9,10 +9,10 @@
     "build": "parcel build"
   },
   "devDependencies": {
-    "chart.js": "^4.2.1",
     "parcel": "^2.8.3"
   },
   "dependencies": {
+    "chart.js": "^4.2.1",
     "@babel/preset-react": "^7.18.6"
   }
 }
