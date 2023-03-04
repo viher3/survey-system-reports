@@ -560,9 +560,16 @@ function hmrAccept(bundle, id) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _auto = require("chart.js/auto");
 var _autoDefault = parcelHelpers.interopDefault(_auto);
-var _1Png = require("./Assets/1.png");
-var _1PngDefault = parcelHelpers.interopDefault(_1Png);
-console.log(12355);
+var _1MinPng = require("./Assets/1_min.png");
+var _1MinPngDefault = parcelHelpers.interopDefault(_1MinPng);
+var _2MinPng = require("./Assets/2_min.png");
+var _2MinPngDefault = parcelHelpers.interopDefault(_2MinPng);
+var _3MinPng = require("./Assets/3_min.png");
+var _3MinPngDefault = parcelHelpers.interopDefault(_3MinPng);
+var _4MinPng = require("./Assets/4_min.png");
+var _4MinPngDefault = parcelHelpers.interopDefault(_4MinPng);
+var _5MinPng = require("./Assets/5_min.png");
+var _5MinPngDefault = parcelHelpers.interopDefault(_5MinPng);
 const labels = [
     "01/01/2023",
     "02/01/2023",
@@ -576,13 +583,11 @@ const data = {
         {
             label: "Average",
             data: [
-                65,
-                59,
-                80,
-                81,
-                56,
-                55,
-                40
+                3,
+                2,
+                2,
+                4,
+                5
             ],
             fill: false,
             borderColor: "rgb(75, 192, 192)",
@@ -591,13 +596,11 @@ const data = {
         {
             label: "Mode",
             data: [
-                60,
-                50,
-                70,
-                61,
-                46,
-                51,
-                40
+                5,
+                5,
+                4,
+                4,
+                5
             ],
             fill: false,
             borderColor: "rgb(75, 192, 500)",
@@ -605,44 +608,57 @@ const data = {
         }
     ]
 };
+const images = [
+    (0, _1MinPngDefault.default),
+    (0, _2MinPngDefault.default),
+    (0, _3MinPngDefault.default),
+    (0, _4MinPngDefault.default),
+    (0, _5MinPngDefault.default)
+].map((png)=>{
+    const image = new Image();
+    image.src = png;
+    return image;
+});
 const ctx = document.getElementById("render");
-const chart = new (0, _autoDefault.default)(ctx, {
+new (0, _autoDefault.default)(ctx, {
     type: "line",
     data: data,
     options: {
         scales: {
             y: {
                 ticks: {
-                    callback: function(value, index, ticks) {
-                        if (value === 55) {
-                            const imageUrl = new URL((0, _1PngDefault.default), "file:///src/index.js");
-                            console.log(imageUrl);
-                            return '<img src="' + imageUrl.pathname + '" />';
-                        }
-                        console.log(value, index);
-                        return "$" + value;
+                    callback: function(value, index) {
+                        return "";
+                    // return value
                     }
-                }
+                },
+                suggestedMin: 1,
+                suggestedMax: 6
             }
         }
     },
     plugins: [
         {
             afterDraw: (chart)=>{
-                var ctx = chart.chart.ctx;
-                var xAxis = chart.scales["x-axis-0"];
-                var yAxis = chart.scales["y-axis-0"];
-                xAxis.ticks.forEach((value, index)=>{
-                    var x = xAxis.getPixelForTick(index);
-                    var image = new Image();
-                    image.src = images[index], ctx.drawImage(image, x - 12, yAxis.bottom + 10);
+                var ctx = chart.ctx;
+                var xAxis = chart.scales.x;
+                var yAxis = chart.scales.y;
+                yAxis.ticks.forEach((value, index)=>{
+                    var y = yAxis.getPixelForTick(index);
+                    console.log(yAxis.paddingLeft);
+                    if (images[index]) {
+                        const xPosition = xAxis.left - 30;
+                        const yPosition = index === 0 ? y - 15 : y - (yAxis.top * 2 * index + 10);
+                        ctx.drawImage(images[index], xPosition, yPosition);
+                        value.label = "";
+                    }
                 });
             }
         }
     ]
 });
 
-},{"chart.js/auto":"d8NN9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Assets/1.png":"5EEwS"}],"d8NN9":[function(require,module,exports) {
+},{"chart.js/auto":"d8NN9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Assets/1_min.png":"lqAVG","./Assets/2_min.png":"dr6Xh","./Assets/3_min.png":"gCelK","./Assets/4_min.png":"cIaXc","./Assets/5_min.png":"lgDvv"}],"d8NN9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _chartJs = require("../dist/chart.js");
@@ -13848,10 +13864,10 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"5EEwS":[function(require,module,exports) {
-module.exports = require("f88b3b215d2289be").getBundleURL("bLxZJ") + "1.6894480e.png" + "?" + Date.now();
+},{}],"lqAVG":[function(require,module,exports) {
+module.exports = require("b94b11f82fcd3e75").getBundleURL("bLxZJ") + "1_min.3188a508.png" + "?" + Date.now();
 
-},{"f88b3b215d2289be":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"b94b11f82fcd3e75":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {
@@ -13885,6 +13901,18 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}]},["412hi","8lqZg"], "8lqZg", "parcelRequire55a6")
+},{}],"dr6Xh":[function(require,module,exports) {
+module.exports = require("af75deb1d8a0b47e").getBundleURL("bLxZJ") + "2_min.848a90ad.png" + "?" + Date.now();
+
+},{"af75deb1d8a0b47e":"lgJ39"}],"gCelK":[function(require,module,exports) {
+module.exports = require("559ef665a272c6ab").getBundleURL("bLxZJ") + "3_min.ff71057b.png" + "?" + Date.now();
+
+},{"559ef665a272c6ab":"lgJ39"}],"cIaXc":[function(require,module,exports) {
+module.exports = require("92ce6f710800422a").getBundleURL("bLxZJ") + "4_min.29d2c127.png" + "?" + Date.now();
+
+},{"92ce6f710800422a":"lgJ39"}],"lgDvv":[function(require,module,exports) {
+module.exports = require("d9a2431f0d960851").getBundleURL("bLxZJ") + "5_min.36270ba2.png" + "?" + Date.now();
+
+},{"d9a2431f0d960851":"lgJ39"}]},["412hi","8lqZg"], "8lqZg", "parcelRequire55a6")
 
 //# sourceMappingURL=index.js.map
