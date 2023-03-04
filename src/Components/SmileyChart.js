@@ -5,7 +5,7 @@ import HappySmiley from "../Assets/4_min.png";
 import SuperHappySmiley from "../Assets/5_min.png";
 import {Chart} from "chart.js/auto";
 
-export function smileyChart(renderElementId, data) {
+export function smileyChart(renderElementId, data, customYPosition = null) {
 
     const images = [
         BadSmiley,
@@ -47,7 +47,11 @@ export function smileyChart(renderElementId, data) {
                     var y = yAxis.getPixelForTick(index);
                     if(images[index]){
                         const xPosition = xAxis.left - 30
-                        const yPosition = (index === 0) ? y - 15 : y - (((yAxis.top*2) * index)+10)
+                        let yPosition = (index === 0) ? y - 15 : y - (((yAxis.top*2) * index)+10)
+
+                        if(customYPosition){
+                            yPosition = customYPosition(y, yAxis, index)
+                        }
 
                         ctx.drawImage(images[index], xPosition, yPosition);
                         value.label = ''
